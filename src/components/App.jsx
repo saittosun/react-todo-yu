@@ -1,5 +1,6 @@
 // jshint esversion: 6
 import React, { useState } from "react";
+import TodoItem from './TodoItem';
 
 function App() {
   const [todo, setTodo] = useState('');
@@ -18,6 +19,14 @@ function App() {
       ]
     });
     setTodo('');
+  }
+
+  function deleteItem(id) {
+    setItems(prevItems => {
+      return prevItems.filter((item, index) => {
+        return index !== id;
+      });
+    });
   }
   
 
@@ -39,9 +48,11 @@ function App() {
         <ul>
           {items.map((todoItem, index) => {
             return (
-              <li key={index}>
-                {todoItem}
-              </li>
+              <TodoItem 
+                text={todoItem}
+                key={index}
+                id={index}
+                onChecked={deleteItem}/>
             )
           })}
         </ul>
