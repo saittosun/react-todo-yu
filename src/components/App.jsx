@@ -1,24 +1,18 @@
 // jshint esversion: 6
 import React, { useState } from "react";
 import TodoItem from './TodoItem';
+import InputArea from "./InputArea";
 
 function App() {
-  const [todo, setTodo] = useState('');
   const [items, setItems] = useState([]);
 
-  function handleChange(e) {
-    const newValue = e.target.value;
-    setTodo(newValue);
-  }
-
-  function addItem() {
+  function addItem(todo) {
     setItems(prevItems => {
       return [
         ...prevItems,
         todo
       ]
     });
-    setTodo('');
   }
 
   function deleteItem(id) {
@@ -35,15 +29,8 @@ function App() {
       <div className="heading">
         <h1>To-Do List</h1>
       </div>
-      <div className="form">
-        <input 
-          type="text"
-          value={todo}
-          onChange={handleChange} />
-        <button onClick={addItem}>
-          <span>Add</span>
-        </button>
-      </div>
+      <InputArea 
+        onAdd={addItem}/>
       <div>
         <ul>
           {items.map((todoItem, index) => {
